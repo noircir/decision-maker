@@ -3,10 +3,12 @@ import AddOption from './AddOption';
 import Options from './Options';
 import Header from './Header';
 import Action from './Action';
+import ChoiceModal from './ChoiceModal';
 
 class App extends React.Component {
     state = {
-        options: []
+        options: [],
+        selectedOption: undefined
     }
 
     deleteOptionsHandler = () => {
@@ -14,8 +16,9 @@ class App extends React.Component {
     }
 
     optionPickHandler = () => {
-        const choice = Math.floor(Math.random() * Math.floor(this.state.options.length));
-        console.log(this.state.options[choice]);
+        const randomNum = Math.floor(Math.random() * Math.floor(this.state.options.length));
+        const option = this.state.options[randomNum];
+        this.setState(() => ({ selectedOption: option }));
     }
 
     addOptionHandler = (option) => {
@@ -33,6 +36,10 @@ class App extends React.Component {
         this.setState((prevState) => ({
             options: prevState.options.filter(item => item !== option)
         }))
+    }
+
+    closeModal = () => {
+        this.setState(() => ({ selectedOption: undefined }));
     }
 
     // To set up data from a DB.
@@ -74,13 +81,17 @@ class App extends React.Component {
                     deleteSingleOptionHandler={this.deleteSingleOptionHandler}
                 />
                 <AddOption addOptionHandler={this.addOptionHandler} />
+                <ChoiceModal
+                     selectedOption={this.state.selectedOption}
+                     closeModal={this.closeModal}
+                />
             </div>
         )
     }
 }
 
-App.defaultProps = {
-    options: ['beef', 'cabbage', 'sour cream']
-}
+// App.defaultProps = {
+//     options: ['beef', 'cabbage', 'sour cream']
+// }
 
 export default App;
