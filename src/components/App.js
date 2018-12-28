@@ -66,21 +66,25 @@ class App extends React.Component {
     }
 
     render() {
-        const subtitle = "Tremendous Taste";
+        const subtitle = "Not sure what to do? Computer will make a decision for you!";
 
         return (
             <div>
                 <Header subtitle={subtitle} />
-                <Action
-                    hasOptions={this.state.options.length > 0}
-                    optionPickHandler={this.optionPickHandler}
-                />
-                <Options
-                    options={this.state.options}
-                    deleteOptionsHandler={this.deleteOptionsHandler}
-                    deleteSingleOptionHandler={this.deleteSingleOptionHandler}
-                />
-                <AddOption addOptionHandler={this.addOptionHandler} />
+                <div className="container">
+                    <Action
+                        hasOptions={this.state.options.length > 0}
+                        optionPickHandler={this.optionPickHandler}
+                    />
+                    <div className="widget">
+                        <Options
+                            options={this.state.options}
+                            deleteOptionsHandler={this.deleteOptionsHandler}
+                            deleteSingleOptionHandler={this.deleteSingleOptionHandler}
+                        />
+                        <AddOption addOptionHandler={this.addOptionHandler} />
+                    </div>
+                </div>
                 <ChoiceModal
                      selectedOption={this.state.selectedOption}
                      closeModal={this.closeModal}
